@@ -5,6 +5,11 @@
   font-family: 'Nanum Gothic', sans-serif;
 }
 
+body{
+  height: 100vh;
+  overflow-y: hidden;
+}
+
 a{
   text-decoration: none;
 }
@@ -13,4 +18,9 @@ a{
   max-width: 1200px;
   margin: 0 auto;
   flex: 1;
+}
+
+.grid{
+  display: gird;
+  grid-template-columns: repeat(3, 1fr);
 }
