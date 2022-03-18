@@ -10,3 +10,7 @@ Home 컴포넌트가 데이터를 받아올 수 있도록 axios.get을 통해 �
 
 # fetch data from server and use to Home component
 서버에서 데이터를 받아와서 메인 페이지(홈 컴포넌트)에서 볼 수 있게 설계.
+
+# make search bar function work
+네비게이션 바에 위치한 검색창에 값을 입력했을 때, 원하는 데이터를 기준으로 데이터를 필터링해서 사용자에게 보여주도록 설계.
+useEffect react hook을 사용했으며, 최신 글이 가장 위로 올라오도록 함. 

@@ -8,7 +8,7 @@ const Feed = ({posts}) => {
     <Posts className='grid'>
       {posts.map((post, idx)=>{
         return(
-          <div className='card'>
+          <div key={idx} className='card'>
             <Link to={`/post/${post.id}`}>
               <h2>{(post.title).slice(0,30)}</h2>
               <p className='postTime'>{post.time}</p>
@@ -36,7 +36,7 @@ const Posts = styled.div`
     height: 250px;
     border-radius: 10px;
     border: 1px solid lightgray;
-
+    overflow-y: hidden;
     a{
       p{
         margin: 15px 0;
