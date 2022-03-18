@@ -7,3 +7,6 @@
 npx json-server -p 5000 -w data/data.json 실행 시 서버 생성.
 Home 컴포넌트가 데이터를 받아올 수 있도록 axios.get을 통해 서버에 요청시, 서버가 데이터를 JSON 형태로 응답. 
 마지막으로 Home 컴포넌트를 대충 목업해서 해당 데이터가 받아지는 지 테스트.
+
+# fetch data from server and use to Home component
+서버에서 데이터를 받아와서 메인 페이지(홈 컴포넌트)에서 볼 수 있게 설계.

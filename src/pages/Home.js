@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import Feed from '../components/Post/Feed';
 
 const Home = ({posts}) => {
+
   return (
     <HomeWrap>
-      {posts.length ? (
-        <div className='container'>{posts[0].title}</div>
-      ) : (
-        <h1>분실물이 존재하지 않습니다.</h1>
-      )}
+      <div className='container'>
+        {posts.length ? (
+          <Feed posts={posts} />
+        ) : (
+          <h1>게시글이 존재하지 않습니다.</h1>
+        )}
+      </div>
     </HomeWrap>
   )
 }
@@ -16,9 +20,10 @@ const Home = ({posts}) => {
 export default Home
 
 const HomeWrap = styled.div`
-  min-height: calc(100vh - 280px);
+  height: calc(100vh - 280px);
   overflow: scroll;
   background-color: #eee;
+  padding: 30px;
   
   h1{
     margin-top: 180px;

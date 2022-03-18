@@ -2,9 +2,9 @@ import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Header from "./components/Header/Header"
 import Home from "./pages/Home";
+import Post from "./pages/Post"
 import { useEffect, useState } from "react";
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Post from "./pages/Post";
 import api from './api/posts'
 
 
@@ -33,10 +33,7 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home posts={posts} />} />
-        <Route 
-          path="/post" 
-          element={<Post/>} 
-        />
+        <Route path="/post" element={<Post />} />
       </Routes>
       <Footer />
     </BrowserRouter>
