@@ -25,8 +25,12 @@ useEffect react hook을 사용했으며, 최신 글이 가장 위로 올라오�
 또한 새로운 데이터가 생성될 때마다 컴포넌트들이 데이터를 업데이트 받을 수 있게 함.
 
 
-# create edit function using api delete method
+# create delete function using api delete method
 글 작성자가 자신이 쓴 글을 원하면 삭제할 수 있게 설계.
 로직: 특정 글을 수정하기 위해 클릭하면 해당 글의 디테일한 내용을 보여주는 페이지로 이동하고 해당 페이지에 삭제 버튼을 추가해서,
 버튼을 클릭했을 때 해당 글이 DB에서 삭제됨.
 axios의 delete 메서드를 사용해서 데이터 삭제 api를 요청함. 
+
+# create edit fuction using api put method
+각 글의 구체적인 내용을 보여주는 디테일 페이지에 존재하는 수정하기 버튼을 누르면, 수정 페이지로 넘어가도록 설계.
+axios의 put 메서드 사용해서 데이터 수정.

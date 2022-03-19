@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate} from 'react-router-dom'
 import api from './api/posts'
 import DetailPage from "./pages/DetailPage";
+import EditPost from "./pages/EditPost";
 
 function App() {
   const [search, setSearch] = useState('');
@@ -14,6 +15,8 @@ function App() {
   const [filterData, setFilterData] = useState([]);
   const [postTitle, setPostTitle] = useState('');
   const [postDetail, setPostDetail] = useState('');
+  const [editTitle, setEditTitle] = useState('');
+  const [editDetail, setEditDetail] = useState('');
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -64,6 +67,20 @@ function App() {
     }
   }
 
+  const handleEdit = async (id) => {
+    const time = new Date().toLocaleString();
+    const updatedPost = {id, title: editTitle, time, detail: editDetail};
+    try{
+      const res = await api.put(`/posts/${id}`, updatedPost);
+      const postsList = posts.map(post=> post.id === id ? {...res.data} : post);
+      setPosts(postsList);
+      setEditDetail('');
+      setEditTitle('');
+      navigate('/');
+    }catch(err){
+      console.log(`Err : ${err.message}`);
+    }
+  }
 
   return (
     <div className="App">
@@ -86,7 +103,28 @@ function App() {
              />
           } 
         />
-        <Route path="/post/:id" element={<DetailPage posts={posts} handleDelete={handleDelete} />} />
+        <Route 
+          path="/post/:id" 
+          element={
+            <DetailPage 
+              posts={posts} 
+              handleDelete={handleDelete} 
+            />
+          } 
+        />
+        <Route
+          path="/edit/:id"
+          element={
+            <EditPost 
+              posts={posts}
+              handleEdit={handleEdit}
+              editTitle={editTitle}
+              setEditTitle={setEditTitle}
+              editDetail={editDetail}
+              setEditDetail={setEditDetail}
+            />
+          }
+        />
       </Routes>
       <Footer />
     </div>
