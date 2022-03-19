@@ -4,14 +4,16 @@ import Header from "./components/Header/Header"
 import Home from "./pages/Home";
 import Post from "./pages/Post"
 import { useEffect, useState } from "react";
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { Routes, Route, useNavigate} from 'react-router-dom'
 import api from './api/posts'
-
 
 function App() {
   const [search, setSearch] = useState('');
   const [posts, setPosts] = useState([]);
   const [filterData, setFilterData] = useState([]);
+  const [postTitle, setPostTitle] = useState('');
+  const [postDetail, setPostDetail] = useState('');
+  const navigate = useNavigate();
 
   useEffect(()=>{
     const fetchPosts = async () => {
@@ -33,8 +35,26 @@ function App() {
       setFilterData(filteredResult.reverse());
   },[posts, search])
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const id = posts.length ? posts[posts.length-1].id + 1 : 1;
+    const time = new Date().toLocaleString();
+    const newPost = {id, title: postTitle, time, detail: postDetail}
+    try{
+      const res = await api.post('/posts', newPost);
+      const allPosts = [...posts, res.data];
+      setPosts(allPosts);
+      setPostDetail('');
+      setPostTitle('');
+      navigate('/');
+    }catch(err){
+      console.log(`Error : ${err.message}`);
+    }
+  }
+
+
   return (
-    <BrowserRouter>
+    <div className="App">
       <Header />
       <Navbar 
         search={search}
@@ -42,10 +62,21 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home posts={filterData} />} />
-        <Route path="/post" element={<Post />} />
+        <Route 
+          path="/post" 
+          element={
+            <Post 
+              handleSubmit={handleSubmit}
+              postTitle={postTitle}
+              setPostTitle={setPostTitle}
+              postDetail={postDetail}
+              setPostDetail={setPostDetail}
+             />
+          } 
+        />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </div>
   );
 }
 
