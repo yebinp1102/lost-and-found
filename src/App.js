@@ -6,6 +6,7 @@ import Post from "./pages/Post"
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate} from 'react-router-dom'
 import api from './api/posts'
+import DetailPage from "./pages/DetailPage";
 
 function App() {
   const [search, setSearch] = useState('');
@@ -52,6 +53,17 @@ function App() {
     }
   }
 
+  const handleDelete = async (id) => {
+    try{
+      await api.delete(`/posts/${id}`);
+      const postsList = posts.filter(post=>post.id!==id);
+      setPosts(postsList);
+      navigate('/');
+    }catch(err){
+      console.log(`Err : ${err.message}`);
+    }
+  }
+
 
   return (
     <div className="App">
@@ -74,6 +86,7 @@ function App() {
              />
           } 
         />
+        <Route path="/post/:id" element={<DetailPage posts={posts} handleDelete={handleDelete} />} />
       </Routes>
       <Footer />
     </div>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Post = ({handleSubmit, postTitle, setPostTitle, postDetail, setPostDetail}) => {
   return (
-    <PostWrap>
+    <PostWrap className='wrap'>
       <div className='container'>
         <h2>새로운 글 올리기</h2>
         <form className='newPost' onSubmit={handleSubmit}>
@@ -15,7 +15,7 @@ const Post = ({handleSubmit, postTitle, setPostTitle, postDetail, setPostDetail}
             value={postTitle}
             onChange={(e)=>setPostTitle(e.target.value)}
           />
-          <label className='postDetail'>내용:</label>
+          <label htmlFor='postDetail'>내용:</label>
           <textarea
             id='postDetail'
             required
@@ -32,10 +32,6 @@ const Post = ({handleSubmit, postTitle, setPostTitle, postDetail, setPostDetail}
 export default Post
 
 const PostWrap = styled.div`
-  height: calc(100vh - 280px);
-  overflow: scroll;
-  background-color: #eee;
-  padding: 30px;
 
   .container{
     background-color: #fff;

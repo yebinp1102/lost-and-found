@@ -5,7 +5,7 @@ import Feed from '../components/Post/Feed';
 const Home = ({posts}) => {
 
   return (
-    <HomeWrap>
+    <HomeWrap className='wrap'>
       <div className='container'>
         {posts.length ? (
           <Feed posts={posts} />
@@ -20,10 +20,6 @@ const Home = ({posts}) => {
 export default Home
 
 const HomeWrap = styled.div`
-  height: calc(100vh - 280px);
-  overflow: scroll;
-  background-color: #eee;
-  padding: 30px;
   
   h1{
     margin-top: 180px;

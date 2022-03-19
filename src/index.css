@@ -25,3 +25,10 @@ a{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
+
+.wrap{
+  height: calc(100vh - 280px);
+  overflow: scroll;
+  background-color: #eee;
+  padding: 30px;
+}
