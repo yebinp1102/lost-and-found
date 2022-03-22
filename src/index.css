@@ -31,4 +31,38 @@ a{
   overflow: scroll;
   background-color: #eee;
   padding: 30px;
+
+  min-height: 500px;
+}
+
+/* 로그인 & 회원기입 */
+.errmsg{
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.offscreen{
+  display: none;
+}
+
+.onscreen{
+  margin-right: 10px;
+}
+
+.instruction {
+  background-color: #051367;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.instruction > svg {
+  margin-right: 10px;
+  font-size: 20px;
 }

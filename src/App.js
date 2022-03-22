@@ -5,9 +5,10 @@ import Home from "./pages/Home";
 import Post from "./pages/Post"
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate} from 'react-router-dom'
-import api from './api/posts'
+import api from './api/axios'
 import DetailPage from "./pages/DetailPage";
 import EditPost from "./pages/EditPost";
+import SignUp from "./pages/SignUp";
 
 function App() {
   const [search, setSearch] = useState('');
@@ -18,6 +19,8 @@ function App() {
   const [editTitle, setEditTitle] = useState('');
   const [editDetail, setEditDetail] = useState('');
   const navigate = useNavigate();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(()=>{
     const fetchPosts = async () => {
@@ -88,6 +91,7 @@ function App() {
       <Navbar 
         search={search}
         setSearch={setSearch}
+        isLoggedIn={isLoggedIn}
       />
       <Routes>
         <Route path="/" element={<Home posts={filterData} />} />
@@ -125,6 +129,7 @@ function App() {
             />
           }
         />
+        <Route path="/sign-up" element={<SignUp />}/>
       </Routes>
       <Footer />
     </div>
