@@ -182,13 +182,16 @@ const SignUp = () => {
 export default SignUp
 
 const SignUpWrap = styled.main`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
   .container{
     background-color: #fff;
-    height: 90%;
     border-radius: 10px;
     padding: 30px;
     border: 1px solid lightgray;
-    max-width: 800px;
+    max-width: 700px;
     
     section{
       width: 100%;
@@ -201,8 +204,6 @@ const SignUpWrap = styled.main`
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
-        flex: 1;
         padding: 20px 0;
       }
 

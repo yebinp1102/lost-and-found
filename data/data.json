@@ -55,6 +55,12 @@
       "email": "dev@naver.com",
       "password": "dev123123!",
       "id": 2
+    },
+    {
+      "username": "yebinp1102",
+      "email": "yebinp1102@naver.com",
+      "password": "qkrdPqls1102!",
+      "id": 3
     }
   ]
 }

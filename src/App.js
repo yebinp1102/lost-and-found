@@ -9,6 +9,7 @@ import api from './api/axios'
 import DetailPage from "./pages/DetailPage";
 import EditPost from "./pages/EditPost";
 import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
 
 function App() {
   const [search, setSearch] = useState('');
@@ -18,6 +19,10 @@ function App() {
   const [postDetail, setPostDetail] = useState('');
   const [editTitle, setEditTitle] = useState('');
   const [editDetail, setEditDetail] = useState('');
+
+  const [username, setUsername] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+
   const navigate = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -129,6 +134,7 @@ function App() {
             />
           }
         />
+        <Route path="/login" element={<Login setUserEmail={setUserEmail}  setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/sign-up" element={<SignUp />}/>
       </Routes>
       <Footer />
