@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Navbar = ({search, setSearch, isLoggedIn}) => {
+const Navbar = ({search, setSearch, isLoggedIn, setIsLoggedIn}) => {
   return (
     <Nav>
       <div className='container'>
@@ -20,7 +20,10 @@ const Navbar = ({search, setSearch, isLoggedIn}) => {
           <Link to='/'>홈으로</Link>
           <Link to='/post'>글 올리기</Link>
           {isLoggedIn ? (
+            <>
             <Link to='/profile'>프로필</Link>
+            <a onClick={()=>setIsLoggedIn(false)}>로그아웃</a>
+            </>            
           ) : (
             <>
               <Link to='/login'>로그인</Link>

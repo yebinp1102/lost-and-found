@@ -97,6 +97,7 @@ function App() {
         search={search}
         setSearch={setSearch}
         isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
       />
       <Routes>
         <Route path="/" element={<Home posts={filterData} />} />
