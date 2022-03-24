@@ -73,3 +73,13 @@
 ###### 각 글의 구체적인 내용을 보여주는 디테일 페이지에 존재하는 수정하기 버튼을 누르면, 수정 페이지로 넘어가도록 설계.axios의 put 메서드 사용해서 데이터 수정.
 
 // 1주차 끝
+
+// 2주차
+##### create sign up page and add user category to the db
+###### 회원가입 페이지를 생성하고 회원가입 양식을 제출 했을 때, 서버에게 전송하고 서버가 데이터를 받아 임시 DB에 저장 가능하도록 설계. 
+
+##### create Login page and add function compare login info from server data
+###### 로그인 페이지 생성. 사용자가 로그인 할 경우, axios를 통해 서버에게 모든 유저의 정보를 요청. 서버의 응답으로 받아온 유저 리스트에서 사용자가 로그인 당시 입력한 이메일(아이디 대용)과 비밀번호와 일치하는 정보만 필터함. 그리고 로그인이 되면 자동으로 메인 페이지로 이동(useNavigate 사용). 메인 페이지로 이동할 경우 isLoggedIn의 값이 true로 바뀌어 Navbar의 구성 요소가 로그인 성공했을 경우로 바뀌도록 설계. 
+
+##### add Logout function
+##### isLoggedIn이 true인 경우, 즉 사용자가 로그인에 성공한 경우에 만약 사용자가 로그아웃 하고 싶을 때를 대비해 로그아웃 기능을 추가함. 
