@@ -83,7 +83,7 @@ const SignUp = () => {
 
   return (
     <SignUpWrap className="wrap">
-      <div className='container'>
+      <div className='container whiteBox'>
         <section>
           <p ref={errRef} className={errMsg ? "errmsg" : "offscrenn"}>{errMsg}</p>
           <h1 className='title'>회원가입</h1><hr/>
@@ -187,10 +187,6 @@ const SignUpWrap = styled.main`
   justify-content: center;
   
   .container{
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 30px;
-    border: 1px solid lightgray;
     max-width: 700px;
     
     section{

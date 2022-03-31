@@ -22,7 +22,7 @@ const Navbar = ({search, setSearch, isLoggedIn, setIsLoggedIn}) => {
           {isLoggedIn ? (
             <>
             <Link to='/profile'>프로필</Link>
-            <a onClick={()=>setIsLoggedIn(false)}>로그아웃</a>
+            <Link to='/' onClick={()=>setIsLoggedIn(false)}>로그아웃</Link>
             </>            
           ) : (
             <>

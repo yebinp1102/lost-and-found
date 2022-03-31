@@ -1,10 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
+import { UserContext } from '../context/UserContext';
 
 
-const Login = ({setUsername, setUserEmail, setIsLoggedIn}) => {
+const Login = () => {
+  const {userList, setUserList, setIsLoggedIn} = useContext(UserContext);
+  // setUsername('ash');
+  // console.log(username);
   const navigate = useNavigate();
   const emailRef = useRef();
   const errRef = useRef();
@@ -12,8 +16,6 @@ const Login = ({setUsername, setUserEmail, setIsLoggedIn}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
-
-  const [userList, setUserList] = useState([]);
 
   const [success, setSuccess] = useState(false);
 
@@ -28,25 +30,27 @@ const Login = ({setUsername, setUserEmail, setIsLoggedIn}) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{
-      const userDB = await axios.get('/users');
-      setUserList(userDB.data);
+      const userDB = await axios.get('/users')
+      setUserList(userDB.data)
+      console.log(userList);
       const filterUser = userList.filter((user)=>
         user.email === email && user.password === password
       );
       if(filterUser){
-        setUsername(filterUser.username);
-        setUserEmail(filterUser.email);
+        // setUsername(filterUser.username);
+        // setUserEmail(filterUser.email);
       }
       setIsLoggedIn(true);
       navigate('/');
     }catch(err){
       console.log(err.message);
     }
+
   }
 
   return (
     <LoginWrap className='wrap'>
-      <section className='container'>
+      <section className='container whiteBox'>
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
         <h1>로그인</h1><hr/>
         <form onSubmit={handleSubmit}>
@@ -88,10 +92,6 @@ const LoginWrap = styled.main`
   justify-content: center;
 
   .container{
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 30px;
-    border: 1px solid lightgray;
     max-width: 600px;
 
     form{

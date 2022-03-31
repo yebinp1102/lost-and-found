@@ -10,6 +10,9 @@ import DetailPage from "./pages/DetailPage";
 import EditPost from "./pages/EditPost";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+
+import { UserContext } from "./context/UserContext";
 
 function App() {
   const [search, setSearch] = useState('');
@@ -20,8 +23,7 @@ function App() {
   const [editTitle, setEditTitle] = useState('');
   const [editDetail, setEditDetail] = useState('');
 
-  const [username, setUsername] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  const [userList, setUserList] = useState([]);
 
   const navigate = useNavigate();
 
@@ -38,6 +40,7 @@ function App() {
     }
     fetchPosts();
   },[])
+
 
   useEffect(()=>{
     const filteredResult = posts.filter((post)=> 
@@ -99,45 +102,48 @@ function App() {
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
       />
-      <Routes>
-        <Route path="/" element={<Home posts={filterData} />} />
-        <Route 
-          path="/post" 
-          element={
-            <Post 
-              handleSubmit={handleSubmit}
-              postTitle={postTitle}
-              setPostTitle={setPostTitle}
-              postDetail={postDetail}
-              setPostDetail={setPostDetail}
-             />
-          } 
-        />
-        <Route 
-          path="/post/:id" 
-          element={
-            <DetailPage 
-              posts={posts} 
-              handleDelete={handleDelete} 
-            />
-          } 
-        />
-        <Route
-          path="/edit/:id"
-          element={
-            <EditPost 
-              posts={posts}
-              handleEdit={handleEdit}
-              editTitle={editTitle}
-              setEditTitle={setEditTitle}
-              editDetail={editDetail}
-              setEditDetail={setEditDetail}
-            />
-          }
-        />
-        <Route path="/login" element={<Login setUserEmail={setUserEmail}  setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/sign-up" element={<SignUp />}/>
-      </Routes>
+      <UserContext.Provider value={{userList, setUserList, setIsLoggedIn}}>
+        <Routes>
+          <Route path="/" element={<Home posts={filterData} />} />
+          <Route 
+            path="/post" 
+            element={
+              <Post 
+                handleSubmit={handleSubmit}
+                postTitle={postTitle}
+                setPostTitle={setPostTitle}
+                postDetail={postDetail}
+                setPostDetail={setPostDetail}
+              />
+            } 
+          />
+          <Route 
+            path="/post/:id" 
+            element={
+              <DetailPage 
+                posts={posts} 
+                handleDelete={handleDelete} 
+              />
+            } 
+          />
+          <Route
+            path="/edit/:id"
+            element={
+              <EditPost 
+                posts={posts}
+                handleEdit={handleEdit}
+                editTitle={editTitle}
+                setEditTitle={setEditTitle}
+                editDetail={editDetail}
+                setEditDetail={setEditDetail}
+              />
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />}/>
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </UserContext.Provider>
       <Footer />
     </div>
   );

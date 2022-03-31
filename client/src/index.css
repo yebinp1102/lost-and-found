@@ -51,6 +51,13 @@ a:hover{
   color: cornflowerblue;
 }
 
+.whiteBox{
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  border: 1px solid lightgray;
+}
+
 /* 로그인 & 회원기입 */
 .errmsg{
   background-color: lightpink;
