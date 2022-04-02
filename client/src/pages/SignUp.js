@@ -2,15 +2,15 @@ import React, {useRef, useState, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {FcCheckmark, FcCancel, FcInfo} from 'react-icons/fc'
-import axios from 'axios';
+import { useDispatch } from 'react-redux'
+import { registerUser } from '../_actions/user_action';
 
 const USER_REGEX = /^[A-z]+[a-z0-9]{5,19}$/
 const EMAIL_REGEX = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 const PWD_REGEX = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/;
-const REGISTER_URL = '/users';
 
 const SignUp = () => {
-
+  const dispatch = useDispatch();
 
   const userRef = useRef();
   const errRef = useRef();
@@ -55,30 +55,22 @@ const SignUp = () => {
     setErrMsg('');
   },[username, password, matchPassword])
 
-  const handleSubmit = async(e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
-    const uservalid = USER_REGEX.test(username);
-    const pwdvalid = PWD_REGEX.test(password)
-    if(!uservalid || !pwdvalid){
-      setErrMsg("불가능한 접근입니다.")
-      return;
+    let body = {
+      email,
+      password,
+      name: username
     }
-
-    try{
-      const newUser = {username, email, password}
-      const res = await axios.post(REGISTER_URL, newUser);
-      setSuccess(true);
-      navigate('/');
-    }catch(err){
-      if(!err?.response){
-        setErrMsg('서버 응답이 없습니다.')
-      }else if(err.response?.status === 409){
-        setErrMsg('이미 사용중인 이름입니다.')
-      }else{
-        setErrMsg('회원가입에 실패했습니다.')
-      }
-      errRef.current.focus();
-    }
+    dispatch(registerUser(body))
+      .then(res => {
+        if(res.payload.success){
+          navigate('/login')
+        }else{
+          alert('회원가입에 실패 했습니다.')
+        }
+      })
+ 
   }
 
   return (
@@ -87,7 +79,7 @@ const SignUp = () => {
         <section>
           <p ref={errRef} className={errMsg ? "errmsg" : "offscrenn"}>{errMsg}</p>
           <h1 className='title'>회원가입</h1><hr/>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSignUp}>
 
             {/* 유저명 */}
             <label htmlFor='user'>
