@@ -1,8 +1,22 @@
+import axios from 'axios';
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Navbar = ({search, setSearch, isLoggedIn, setIsLoggedIn}) => {
+const Navbar = ({search, setSearch, isLoggedIn}) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    axios.get('/api/users/logout')
+      .then(res => {
+        if(res.data.success){
+          navigate('/login')
+        }else{
+          alert('로그아웃에 실패 했습니다.')
+        }
+      })
+  }
+
   return (
     <Nav>
       <div className='container'>
@@ -22,12 +36,13 @@ const Navbar = ({search, setSearch, isLoggedIn, setIsLoggedIn}) => {
           {isLoggedIn ? (
             <>
             <Link to='/profile'>프로필</Link>
-            <Link to='/' onClick={()=>setIsLoggedIn(false)}>로그아웃</Link>
+            {/* <Link to='/' onClick={handleLogout}>로그아웃</Link> */}
             </>            
           ) : (
             <>
               <Link to='/login'>로그인</Link>
               <Link to='/sign-up'>회원가입</Link>
+              <Link to='/' onClick={handleLogout}>로그아웃</Link>
             </>            
           )}
         </div>
