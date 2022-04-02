@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Feed from '../components/Post/Feed';
 
 const Home = ({posts}) => {
-
   return (
     <HomeWrap className='wrap'>
       <div className='container'>

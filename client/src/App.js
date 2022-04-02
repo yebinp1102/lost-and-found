@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Post from "./pages/Post"
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate} from 'react-router-dom'
-import api from './api/axios'
+import axios from 'axios'
 import DetailPage from "./pages/DetailPage";
 import EditPost from "./pages/EditPost";
 import SignUp from "./pages/SignUp";
@@ -29,17 +29,17 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(()=>{
-    const fetchPosts = async () => {
-      try{
-        const res = await api.get('/posts');
-        setPosts(res.data);
-      }catch(err){
-        console.log(`Error : ${err.message}`);
-      }
-    }
-    fetchPosts();
-  },[])
+  // useEffect(()=>{
+  //   const fetchPosts = async () => {
+  //     try{
+  //       const res = await axios.get('/api/user/posts');
+  //       setPosts(res.data);
+  //     }catch(err){
+  //       console.log(`Error : ${err.message}`);
+  //     }
+  //   }
+  //   fetchPosts();
+  // },[])
 
 
   useEffect(()=>{
@@ -56,7 +56,7 @@ function App() {
     const time = new Date().toLocaleString();
     const newPost = {id, title: postTitle, time, detail: postDetail}
     try{
-      const res = await api.post('/posts', newPost);
+      const res = await axios.post('/api/users/posts', newPost);
       const allPosts = [...posts, res.data];
       setPosts(allPosts);
       setPostDetail('');
@@ -69,7 +69,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try{
-      await api.delete(`/posts/${id}`);
+      await axios.delete(`/api/users/posts/${id}`);
       const postsList = posts.filter(post=>post.id!==id);
       setPosts(postsList);
       navigate('/');
@@ -82,7 +82,7 @@ function App() {
     const time = new Date().toLocaleString();
     const updatedPost = {id, title: editTitle, time, detail: editDetail};
     try{
-      const res = await api.put(`/posts/${id}`, updatedPost);
+      const res = await axios.put(`/api/user/posts/${id}`, updatedPost);
       const postsList = posts.map(post=> post.id === id ? {...res.data} : post);
       setPosts(postsList);
       setEditDetail('');

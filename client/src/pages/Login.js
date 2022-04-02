@@ -1,23 +1,20 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from '../api/axios';
-import { UserContext } from '../context/UserContext';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../_actions/user_action';
 
 
 const Login = () => {
-  const {userList, setUserList, setIsLoggedIn} = useContext(UserContext);
-  // setUsername('ash');
-  // console.log(username);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const emailRef = useRef();
   const errRef = useRef();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
-
-  const [success, setSuccess] = useState(false);
 
   useEffect(()=>{
     emailRef.current.focus();
@@ -27,25 +24,21 @@ const Login = () => {
     setErrMsg('');
   },[email, password])
 
-  const handleSubmit = async(e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    try{
-      const userDB = await axios.get('/users')
-      setUserList(userDB.data)
-      console.log(userList);
-      const filterUser = userList.filter((user)=>
-        user.email === email && user.password === password
-      );
-      if(filterUser){
-        // setUsername(filterUser.username);
-        // setUserEmail(filterUser.email);
-      }
-      setIsLoggedIn(true);
-      navigate('/');
-    }catch(err){
-      console.log(err.message);
+    let body = {
+      email: email,
+      password: password
     }
-
+    dispatch(loginUser(body))
+      .then(res => {
+        console.log(res);
+        if(res.payload.loginSuccess) {
+          navigate('/')
+        }else{
+          alert('로그인 에러가 발생 했습니다.')
+        }
+    })
   }
 
   return (
@@ -53,7 +46,7 @@ const Login = () => {
       <section className='container whiteBox'>
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
         <h1>로그인</h1><hr/>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <label htmlFor='email'>이메일 :</label>
           <input
             ref={emailRef}

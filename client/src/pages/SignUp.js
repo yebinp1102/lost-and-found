@@ -1,8 +1,8 @@
 import React, {useRef, useState, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import api from '../api/axios'
 import {FcCheckmark, FcCancel, FcInfo} from 'react-icons/fc'
+import axios from 'axios';
 
 const USER_REGEX = /^[A-z]+[a-z0-9]{5,19}$/
 const EMAIL_REGEX = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
@@ -66,7 +66,7 @@ const SignUp = () => {
 
     try{
       const newUser = {username, email, password}
-      const res = await api.post(REGISTER_URL, newUser);
+      const res = await axios.post(REGISTER_URL, newUser);
       setSuccess(true);
       navigate('/');
     }catch(err){
