@@ -24,6 +24,7 @@ function App() {
   const [editTitle, setEditTitle] = useState('');
   const [editDetail, setEditDetail] = useState('');
 
+
   const [userList, setUserList] = useState([]);
 
   const navigate = useNavigate();

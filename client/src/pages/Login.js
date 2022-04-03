@@ -20,12 +20,12 @@ const Login = () => {
     emailRef.current.focus();
   },[])
 
+
   useEffect(()=>{
     setErrMsg('');
   },[email, password])
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleLogin = () => {
     let body = {
       email: email,
       password: password

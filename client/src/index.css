@@ -47,9 +47,6 @@ a{
   font-size: 18px;
   font-weight: bold;
 }
-a:hover{
-  color: cornflowerblue;
-}
 
 .whiteBox{
   background-color: #fff;
@@ -104,4 +101,16 @@ input{
 label{
   font-size: 22px;
   margin: 20px 0;
+}
+.logo{
+  font-family: 'Lobster', cursive;
+}
+.gradient{
+  background-color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(6,75,164,1) 56%, rgba(0,212,255,1) 100%);
+}
+
+.flex-space{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
