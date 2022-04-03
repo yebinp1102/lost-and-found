@@ -1,5 +1,5 @@
 import Footer from "./components/Footer/Footer";
-import Navbar from "./components/Navbar/Navbar";
+import SearchBar from "./components/Navbar/Search";
 import Header from "./components/Header/Header"
 import Home from "./pages/Home";
 import Post from "./pages/Post"
@@ -11,6 +11,7 @@ import EditPost from "./pages/EditPost";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import Auth from "./hoc/Auth";
 
 import { UserContext } from "./context/UserContext";
 
@@ -27,89 +28,73 @@ function App() {
 
   const navigate = useNavigate();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // useEffect(()=>{
-  //   const fetchPosts = async () => {
-  //     try{
-  //       const res = await axios.get('/api/user/posts');
-  //       setPosts(res.data);
-  //     }catch(err){
-  //       console.log(`Error : ${err.message}`);
-  //     }
+  //   const filteredResult = posts.filter((post)=> 
+  //     ((post.detail).toLowerCase()).includes(search.toLowerCase()) ||
+  //     ((post.title).toLowerCase()).includes(search.toLowerCase()));
+  //     // 최신 글이 위로 올라오도록 하기 위해서 reverse 메소드 사용.
+  //     setFilterData(filteredResult.reverse());
+  // },[posts, search])
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const id = posts.length ? posts[posts.length-1].id + 1 : 1;
+  //   const time = new Date().toLocaleString();
+  //   const newPost = {id, title: postTitle, time, detail: postDetail}
+  //   try{
+  //     const res = await axios.post('/api/users/posts', newPost);
+  //     const allPosts = [...posts, res.data];
+  //     setPosts(allPosts);
+  //     setPostDetail('');
+  //     setPostTitle('');
+  //     navigate('/');
+  //   }catch(err){
+  //     console.log(`Error : ${err.message}`);
   //   }
-  //   fetchPosts();
-  // },[])
+  // }
 
+  // const handleDelete = async (id) => {
+  //   try{
+  //     await axios.delete(`/api/users/posts/${id}`);
+  //     const postsList = posts.filter(post=>post.id!==id);
+  //     setPosts(postsList);
+  //     navigate('/');
+  //   }catch(err){
+  //     console.log(`Err : ${err.message}`);
+  //   }
+  // }
 
-  useEffect(()=>{
-    const filteredResult = posts.filter((post)=> 
-      ((post.detail).toLowerCase()).includes(search.toLowerCase()) ||
-      ((post.title).toLowerCase()).includes(search.toLowerCase()));
-      // 최신 글이 위로 올라오도록 하기 위해서 reverse 메소드 사용.
-      setFilterData(filteredResult.reverse());
-  },[posts, search])
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const id = posts.length ? posts[posts.length-1].id + 1 : 1;
-    const time = new Date().toLocaleString();
-    const newPost = {id, title: postTitle, time, detail: postDetail}
-    try{
-      const res = await axios.post('/api/users/posts', newPost);
-      const allPosts = [...posts, res.data];
-      setPosts(allPosts);
-      setPostDetail('');
-      setPostTitle('');
-      navigate('/');
-    }catch(err){
-      console.log(`Error : ${err.message}`);
-    }
-  }
-
-  const handleDelete = async (id) => {
-    try{
-      await axios.delete(`/api/users/posts/${id}`);
-      const postsList = posts.filter(post=>post.id!==id);
-      setPosts(postsList);
-      navigate('/');
-    }catch(err){
-      console.log(`Err : ${err.message}`);
-    }
-  }
-
-  const handleEdit = async (id) => {
-    const time = new Date().toLocaleString();
-    const updatedPost = {id, title: editTitle, time, detail: editDetail};
-    try{
-      const res = await axios.put(`/api/user/posts/${id}`, updatedPost);
-      const postsList = posts.map(post=> post.id === id ? {...res.data} : post);
-      setPosts(postsList);
-      setEditDetail('');
-      setEditTitle('');
-      navigate('/');
-    }catch(err){
-      console.log(`Err : ${err.message}`);
-    }
-  }
+  // const handleEdit = async (id) => {
+  //   const time = new Date().toLocaleString();
+  //   const updatedPost = {id, title: editTitle, time, detail: editDetail};
+  //   try{
+  //     const res = await axios.put(`/api/user/posts/${id}`, updatedPost);
+  //     const postsList = posts.map(post=> post.id === id ? {...res.data} : post);
+  //     setPosts(postsList);
+  //     setEditDetail('');
+  //     setEditTitle('');
+  //     navigate('/');
+  //   }catch(err){
+  //     console.log(`Err : ${err.message}`);
+  //   }
+  // }
 
   return (
     <div className="App">
       <Header />
-      <Navbar 
+      <SearchBar 
         search={search}
         setSearch={setSearch}
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
       />
-      <UserContext.Provider value={{userList, setUserList, setIsLoggedIn}}>
+      <UserContext.Provider value={{userList, setUserList}}>
         <Routes>
-          <Route path="/" element={<Home posts={filterData} />} />
+          <Route path="/" element={Auth(Home, null)} />
           <Route 
             path="/post" 
             element={
               <Post 
-                handleSubmit={handleSubmit}
+                // handleSubmit={handleSubmit}
                 postTitle={postTitle}
                 setPostTitle={setPostTitle}
                 postDetail={postDetail}
@@ -122,7 +107,7 @@ function App() {
             element={
               <DetailPage 
                 posts={posts} 
-                handleDelete={handleDelete} 
+                // handleDelete={handleDelete} 
               />
             } 
           />
@@ -131,7 +116,7 @@ function App() {
             element={
               <EditPost 
                 posts={posts}
-                handleEdit={handleEdit}
+                // handleEdit={handleEdit}
                 editTitle={editTitle}
                 setEditTitle={setEditTitle}
                 editDetail={editDetail}
@@ -139,8 +124,8 @@ function App() {
               />
             }
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />}/>
+          <Route path="/login" element={Auth(Login, false)} />
+          <Route path="/sign-up" element={Auth(SignUp, false)}/>
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </UserContext.Provider>
