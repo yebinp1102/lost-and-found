@@ -84,10 +84,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <SearchBar 
-        search={search}
-        setSearch={setSearch}
-      />
       <UserContext.Provider value={{userList, setUserList}}>
         <Routes>
           <Route path="/" element={Auth(Home, null)} />
@@ -130,7 +126,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </UserContext.Provider>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

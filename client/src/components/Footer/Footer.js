@@ -15,11 +15,11 @@ export default Footer
 
 const FooterWrap = styled.div`
   height: 70px;
-  background-color: #5D8BF4;
-  color: #fff;
   display: flex;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   align-items: center;
+  box-shadow: 4px -4px #eee;
+  margin-top: 10px;
 `;

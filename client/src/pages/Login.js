@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState, useContext } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../_actions/user_action';
 
@@ -8,6 +8,8 @@ import { loginUser } from '../_actions/user_action';
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
 
   const emailRef = useRef();
   const errRef = useRef();
@@ -25,7 +27,8 @@ const Login = () => {
     setErrMsg('');
   },[email, password])
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault()
     let body = {
       email: email,
       password: password
@@ -35,6 +38,7 @@ const Login = () => {
         console.log(res);
         if(res.payload.loginSuccess) {
           navigate('/')
+          window.location.reload();
         }else{
           alert('로그인 에러가 발생 했습니다.')
         }

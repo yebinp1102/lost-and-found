@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 
-const SearchBar = ({search, setSearch, isLoggedIn}) => {
+const SearchBar = ({search, setSearch}) => {
 
 
   return (
@@ -23,15 +23,15 @@ const SearchBar = ({search, setSearch, isLoggedIn}) => {
 export default SearchBar
 
 const Search = styled.nav`
-  padding: 20px;
 
   form{
     input{
-    width: 100%;
-    padding: 15px;
-    outline: none;
-    font-size: 18px;
-    border-radius: 5px;
+      width: 400px;
+      border: 1px solid #ddd;
+      padding: 15px;
+      outline: none;
+      font-size: 12px;
+      border-radius: 5px;
     }
   }
 `;

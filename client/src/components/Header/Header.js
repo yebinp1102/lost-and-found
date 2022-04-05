@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React from 'react'
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 const Header = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const user = useSelector(state => state.user)
 
@@ -55,7 +54,8 @@ const MenuWrap = styled.header`
   display: flex;
   align-items: center;
   box-shadow: 0 4px 4px 0px #eee;
-  margin-bottom: 10px;
+  z-index: 1000;
+  margin-bottom: 3px;
   
   .logo{
     padding: 0 20px;
