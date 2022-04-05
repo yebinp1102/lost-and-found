@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const { User } = require('./models/User')
 const { auth } = require('../middleware/auth') 
+const cors = require('cors')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -20,6 +21,9 @@ app.get('/', function (req, res) {
   res.send('Hello World')
 })
 
+app.use(cors())
+app.use('/api/product', require('./routes/product'));
+app.use('/uploads', express.static('uploads'));
 
 // 로그인 라우트
 app.post('/api/users/login', (req, res)=>{

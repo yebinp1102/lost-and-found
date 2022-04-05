@@ -14,7 +14,9 @@ a{
   text-decoration: none;
   color: #000;
 }
-
+.main-color{
+  color: #456ee3;
+}
 .container{
   max-width: 1200px;
   margin: 0 auto;
@@ -33,14 +35,15 @@ a{
   padding: 30px;
 }
 .btn{
-  padding: 15px;
-  font-size: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
   cursor: pointer;
-  margin-top: 100px;
 }
 .btn:enabled{
   color: #fff;
-  background-color: #051367;
+  background-color: #456ee3;
 }
 
 .bold{
@@ -91,17 +94,6 @@ a{
   padding-bottom: 20px;
 }
 
-input{
-  font-size: 20px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid gray;
-}
-
-label{
-  font-size: 22px;
-  margin: 20px 0;
-}
 .logo{
   font-family: 'Lobster', cursive;
 }
@@ -111,6 +103,24 @@ label{
   justify-content: space-between;
   align-items: center;
 }
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.mg-2{
+  margin: 2rem 0;
+}
+.mg-1{
+  margin: 1rem 0;
+} 
 
 /* CSS Gradient Animator */
 .css-selector {

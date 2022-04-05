@@ -1,11 +1,9 @@
 import Footer from "./components/Footer/Footer";
-import SearchBar from "./components/Navbar/Search";
 import Header from "./components/Header/Header"
 import Home from "./pages/Home";
 import Post from "./pages/Post"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Routes, Route, useNavigate} from 'react-router-dom'
-import axios from 'axios'
 import DetailPage from "./pages/DetailPage";
 import EditPost from "./pages/EditPost";
 import SignUp from "./pages/SignUp";
@@ -19,8 +17,6 @@ function App() {
   const [search, setSearch] = useState('');
   const [posts, setPosts] = useState([]);
   const [filterData, setFilterData] = useState([]);
-  const [postTitle, setPostTitle] = useState('');
-  const [postDetail, setPostDetail] = useState('');
   const [editTitle, setEditTitle] = useState('');
   const [editDetail, setEditDetail] = useState('');
 
@@ -28,32 +24,6 @@ function App() {
   const [userList, setUserList] = useState([]);
 
   const navigate = useNavigate();
-
-
-  // useEffect(()=>{
-  //   const filteredResult = posts.filter((post)=> 
-  //     ((post.detail).toLowerCase()).includes(search.toLowerCase()) ||
-  //     ((post.title).toLowerCase()).includes(search.toLowerCase()));
-  //     // 최신 글이 위로 올라오도록 하기 위해서 reverse 메소드 사용.
-  //     setFilterData(filteredResult.reverse());
-  // },[posts, search])
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const id = posts.length ? posts[posts.length-1].id + 1 : 1;
-  //   const time = new Date().toLocaleString();
-  //   const newPost = {id, title: postTitle, time, detail: postDetail}
-  //   try{
-  //     const res = await axios.post('/api/users/posts', newPost);
-  //     const allPosts = [...posts, res.data];
-  //     setPosts(allPosts);
-  //     setPostDetail('');
-  //     setPostTitle('');
-  //     navigate('/');
-  //   }catch(err){
-  //     console.log(`Error : ${err.message}`);
-  //   }
-  // }
 
   // const handleDelete = async (id) => {
   //   try{
@@ -89,15 +59,7 @@ function App() {
           <Route path="/" element={Auth(Home, null)} />
           <Route 
             path="/post" 
-            element={
-              <Post 
-                // handleSubmit={handleSubmit}
-                postTitle={postTitle}
-                setPostTitle={setPostTitle}
-                postDetail={postDetail}
-                setPostDetail={setPostDetail}
-              />
-            } 
+            element={Auth(Post, true)} 
           />
           <Route 
             path="/post/:id" 
