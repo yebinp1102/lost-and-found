@@ -36,11 +36,16 @@ router.post('/', (req, res)=>{
 })
 
 router.post('/items', (req, res)=>{
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+
   Item.find()
     .populate('writer')
+    .skip(skip)
+    .limit(limit)
     .exec((err, itemInfo)=>{
       if(err) return res.status(400).json({success: false, err})
-      return res.status(200).json({success: true, itemInfo})
+      return res.status(200).json({success: true, itemInfo, postSize: itemInfo.length})
     })
 })
 
