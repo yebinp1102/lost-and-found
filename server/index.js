@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 })
 
 app.use(cors())
-app.use('/api/product', require('./routes/product'));
+app.use('/api/item', require('./routes/item'));
 app.use('/uploads', express.static('uploads'));
 
 // 로그인 라우트

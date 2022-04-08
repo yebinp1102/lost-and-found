@@ -12,7 +12,7 @@ import React, { useState } from 'react'
        header: {'content-type' : 'multipart/form-data'}
      }
      formData.append('file', files[0])
-     axios.post('/api/product/image', formData, config)
+     axios.post('/api/item/image', formData, config)
        .then(res=>{
          if(res.data.success){
            setImages([...images, res.data.filePath])

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const productSchema = mongoose.Schema({
+const itemSchema = mongoose.Schema({
   writer: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -27,6 +27,6 @@ const productSchema = mongoose.Schema({
 }, {timestamps: true})
 
 
-const Product = mongoose.model('Product', productSchema)
+const Item = mongoose.model('Item', itemSchema)
 
-module.exports = { Product } 
+module.exports = { Item } 

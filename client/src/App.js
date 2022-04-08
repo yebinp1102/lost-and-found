@@ -57,10 +57,7 @@ function App() {
       <UserContext.Provider value={{userList, setUserList}}>
         <Routes>
           <Route path="/" element={Auth(Home, null)} />
-          <Route 
-            path="/post" 
-            element={Auth(Post, true)} 
-          />
+          <Route path="/post" element={Auth(Post, true)} />
           <Route 
             path="/post/:id" 
             element={

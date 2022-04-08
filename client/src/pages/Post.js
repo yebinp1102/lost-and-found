@@ -42,7 +42,7 @@ const Post = ({user}) => {
       images,
       place
     }
-    axios.post('/api/product', body)
+    axios.post('/api/item', body)
       .then(res=>{
         if(res.data.success){
           alert('상품 업로드에 성공 했습니다.')
@@ -51,7 +51,6 @@ const Post = ({user}) => {
           alert('상품 업로드에 실패 했습니다.')
         }
       })
-
   }
 
   return (
