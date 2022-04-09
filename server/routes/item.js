@@ -36,11 +36,24 @@ router.post('/', (req, res)=>{
 })
 
 router.post('/items', (req, res)=>{
+  let order = req.body.order ? req.body.order : "desc"
+  let sortBy = req.body.sortBy ? req.body.sort : "_id"
   let limit = req.body.limit ? parseInt(req.body.limit) : 100;
   let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+  
+  let findArgs = {}
 
-  Item.find()
+  for(let key in req.body.filters){
+    if(req.body.filters[key].length > 0){
+      findArgs[key] = req.body.filters[key];
+    }
+  }
+
+  console.log('findArgs', findArgs)
+
+  Item.find(findArgs)
     .populate('writer')
+    .sort([[sortBy, order]])
     .skip(skip)
     .limit(limit)
     .exec((err, itemInfo)=>{

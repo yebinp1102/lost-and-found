@@ -2,13 +2,17 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import Card from '../utils/Card'
-
+import FilterBox from '../utils/FilterBox'
+import {places} from './Datas'
 const ItemDatas = () => {
 
   const [items, setItems] = useState([])
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(6);
   const [postSize, setPostSize] = useState(0)
+  const [Filters, setFilters] = useState({
+    places: []
+  })
 
   useEffect(()=>{
     let body = {
@@ -54,10 +58,31 @@ const ItemDatas = () => {
     setSkip(skip)
   }
 
+  const showFilterResults = (filters) => {
+    let body ={
+      skip: 0,
+      limit,
+      filters
+
+    }
+    getItem(body)
+    setSkip(0)
+  }
+
+  const handleFilters = (filters, category) => {
+    const newFilters = {...Filters}
+    newFilters[category] = filters
+    showFilterResults(newFilters)
+  }
+
   return (
     <ItemWrap className='container pd-2'>
       <p>최근 올라온 분실문</p>
       <hr/>
+      <div className='filters grid'>
+        <FilterBox title={"지역"} lists={places} handleFilters={filters => handleFilters(filters, "places")} />
+      </div>
+
       <div className='grid-3 mg-2'>
         {renderItems}
       </div>

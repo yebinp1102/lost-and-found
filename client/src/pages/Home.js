@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SearchBar from '../components/Navbar/Search';
 import ItemDatas from '../components/Section/ItemDatas'

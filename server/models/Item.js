@@ -20,7 +20,7 @@ const itemSchema = mongoose.Schema({
     type: Number,
     default: 0
   },
-  place: {
+  places: {
     type: Number,
     default: 1
   }
