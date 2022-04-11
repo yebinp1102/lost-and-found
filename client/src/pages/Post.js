@@ -21,12 +21,18 @@ const Places = [
   {key: 14, value: '대전'}
 ]
 
+const Conditions = [
+  { key: "1", value: "습득" },
+  { key: "2", value: "분실" }
+]
+
 const Post = ({user}) => {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [place, setPlace] = useState(1);
+  const [condition, setCondition] = useState(1);
   const [images, setImages] = useState([])
 
   const updateImages = (newImages) =>{
@@ -40,7 +46,8 @@ const Post = ({user}) => {
       title,
       desc,
       images,
-      place
+      places: place,
+      conditions: condition
     }
     axios.post('/api/item', body)
       .then(res=>{
@@ -78,6 +85,11 @@ const Post = ({user}) => {
           <select className='mg-2' value={place} onChange={(e)=>setPlace(e.target.value)} >
              {Places.map(place=>(
               <option key={place.key} value={place.key}>{place.value}</option>
+            ))}
+          </select>
+          <select className='mg-2' value={condition} onChange={(e)=>setCondition(e.target.value)} >
+             {Conditions.map(condition=>(
+              <option key={condition.key} value={condition.key}>{condition.value}</option>
             ))}
           </select>
           <button type='submit' className='btn' disabled={!title || !desc || !place ? true : false}>작성하기</button>

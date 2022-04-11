@@ -62,4 +62,18 @@ router.post('/items', (req, res)=>{
     })
 })
 
+router.get('/items_by_id', (req, res)=>{
+  let type = req.query.type
+  let itemId = req.query.id
+
+  Item.find({_id: itemId})
+    .populate('writer')
+    .exec((err, item)=>{
+      if(err) return res.status(400).json({success: false, err})
+      return res.status(200).json({success: true, item})
+    })
+
+})
+
+
 module.exports = router;

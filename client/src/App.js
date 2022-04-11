@@ -58,15 +58,6 @@ function App() {
         <Routes>
           <Route path="/" element={Auth(Home, null)} />
           <Route path="/post" element={Auth(Post, true)} />
-          <Route 
-            path="/post/:id" 
-            element={
-              <DetailPage 
-                posts={posts} 
-                // handleDelete={handleDelete} 
-              />
-            } 
-          />
           <Route
             path="/edit/:id"
             element={
@@ -82,6 +73,7 @@ function App() {
           />
           <Route path="/login" element={Auth(Login, false)} />
           <Route path="/sign-up" element={Auth(SignUp, false)}/>
+          <Route path='/item/:itemId' element={Auth(DetailPage, null)} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </UserContext.Provider>

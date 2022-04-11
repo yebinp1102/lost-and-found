@@ -1,30 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import {Link, useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import axios from 'axios';
+import ItemInfo from '../components/Section/ItemInfo'
+import ItemImage from '../components/Section/ItemImage'
 
-const DetailPage = ({posts, handleDelete}) => {
-  const {id} = useParams();
-  const post = posts.find(post=>(post.id).toString() === id);
+const DetailPage = () => {
+  const {itemId} = useParams();
+  const [Item, setItem] = useState({})
+
+  useEffect(()=>{
+    axios.get(`/api/item/items_by_id?id=${itemId}&type=single`)
+      .then(res=>{
+        if(res.data.success){
+          setItem(res.data.item[0])
+        }else{
+          alert('글 상세 보기에 실패 했습니다.')
+        }
+      })
+  },[])
   return (
-    <DetailWrap className='wrap'>
-      <div className='container'>
-        {post && 
-          <>
-            <h2>{post.title}</h2>
-            <p className='postTime'>{post.time}</p>
-            <p className='postDetail'>{post.detail}</p>
-            <Link to={`/edit/${post.id}`}><button>수정하기</button></Link>
-            <button className='deleteButton' onClick={()=>handleDelete(post.id)}>삭제하기</button>
-          </>
-        }
-        {!post &&
-          <>
-            <h2>글이 존재하지 않습니다.</h2>
-            <p className='goToHome'>
-              <Link to='/'>홈으로 돌아가기</Link>
-            </p>
-          </>
-        }
+    <DetailWrap className='container pd-2'>
+      <div className='grid pd-2'>
+        <ItemImage detail={Item} />
+        <ItemInfo detail={Item} />
       </div>
     </DetailWrap>
   )
@@ -34,45 +33,4 @@ export default DetailPage
 
 const DetailWrap = styled.div`
 
-  .container{
-    background-color: #fff;
-    height: 100%;
-    border-radius: 10px;
-    padding: 30px;
-    border: 1px solid lightgray;
-
-    .postTime{
-      font-size: 18px;
-      margin: 15px 0;
-      color: gray;
-      border-bottom: 1px solid gray;
-      padding-bottom: 15px;
-    }
-
-    button{
-      border: none;
-      padding: 10px 20px; 
-      margin-right: 15px;
-      border-radius: 5px;
-      background-color: #051367;
-      color: #fff;
-      margin-top: 50px;
-      cursor: pointer;
-    }
-
-    h2{
-      font-weight: 500;
-    }
-
-    .goToHome{
-      margin-top: 20px;
-      a{
-        font-size: 20px;
-        font-weight: bold;
-      }
-      a:hover{
-        text-decoration: underline;
-      }
-    }
-  }
 `;

@@ -23,6 +23,10 @@ const itemSchema = mongoose.Schema({
   places: {
     type: Number,
     default: 1
+  },
+  conditions: {
+    type: Number,
+    default: 1
   }
 }, {timestamps: true})
 
