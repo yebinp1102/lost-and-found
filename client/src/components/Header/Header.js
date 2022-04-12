@@ -37,6 +37,9 @@ const Header = () => {
         <div className='container flex-space'>
           <Link to='/' className='logo'>LostFound</Link>
           <nav>
+            <Link to='/user/list' className='list-star'>
+              <span>관심목록</span>
+            </Link>
             <Link to='/post'>글쓰기</Link>
             <Link to='/profile'>프로필</Link>
             <Link to='/' onClick={handleLogout}>로그아웃</Link>

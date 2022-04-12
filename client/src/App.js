@@ -10,8 +10,8 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Auth from "./hoc/Auth";
-
 import { UserContext } from "./context/UserContext";
+import ListPage from "./pages/ListPage";
 
 function App() {
   const [search, setSearch] = useState('');
@@ -74,6 +74,7 @@ function App() {
           <Route path="/login" element={Auth(Login, false)} />
           <Route path="/sign-up" element={Auth(SignUp, false)}/>
           <Route path='/item/:itemId' element={Auth(DetailPage, null)} />
+          <Route path='/user/list' element={Auth(ListPage, true)} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </UserContext.Provider>
