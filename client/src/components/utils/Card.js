@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Card = ({cover, title}) => {
+const Card = ({cover, title, conditions}) => {
   return (
     <CardWrap>
       <Img>
         {cover}
       </Img>
-      <p>{title}</p>
+      <p><span>{conditions === 1 ? '[습득]' : '[분실]'} </span>{title}</p>
     </CardWrap>
   )
 }

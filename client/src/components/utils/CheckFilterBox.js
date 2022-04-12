@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const FilterBox = ({title, lists, handleFilters}) => {
+const CheckFilterBox = ({lists, handleFilters}) => {
   const [clicked, setClicked] = useState(false);
   const [checked, setChecked] = useState([]);
 
@@ -14,12 +14,12 @@ const FilterBox = ({title, lists, handleFilters}) => {
     handleFilters(newChecked)
   }
  return (
-    <BoxWrap>
+    <CheckBoxWrap>
       <BoxHeader onClick={()=>setClicked(!clicked)}>
-        <span>{title}</span>
+        <span>지역</span>
         <span>{clicked ? "-" : "+"}</span>
       </BoxHeader>
-      <BoxSection className={clicked && "show pd-1"}>
+      <BoxSection className={clicked ? "show pd-1" : "none"}>
         <ul>
           {lists.map((list)=>(
             <li key={list._id}>
@@ -33,13 +33,14 @@ const FilterBox = ({title, lists, handleFilters}) => {
           ))}
         </ul>
       </BoxSection>
-    </BoxWrap>
+    </CheckBoxWrap>
   )
 }
 
-export default FilterBox
+export default CheckFilterBox
 
-const BoxWrap = styled.div`
+const CheckBoxWrap = styled.div`
+  flex: .5;
   margin-top: 20px;
   border-radius: 5px;
   border: 1px solid #ddd;
@@ -47,6 +48,10 @@ const BoxWrap = styled.div`
   .show{
     height: auto;
     max-height: 999px;
+    transition: all .1s;
+  }
+  .none{
+    height: 0;
     transition: all .1s;
   }
 `;

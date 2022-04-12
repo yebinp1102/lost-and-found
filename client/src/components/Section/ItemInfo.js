@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import {useDispatch} from 'react-redux'
+import {BsStar} from 'react-icons/bs'
+import { addToList } from '../../_actions/user_action'
 
 const ItemInfo = ({detail}) => {
   const [date, setDate] = useState("")
   const [writer, setWriter] = useState("")
 
+  const dispatch = useDispatch();
+
   useEffect(()=>{
-    console.log(detail)
     if(detail && detail.writer && detail.writer.name){
       let name = detail.writer.name
       setWriter(name)
@@ -16,6 +20,10 @@ const ItemInfo = ({detail}) => {
       setDate(Date)
     }
   },[detail])
+
+  const handleClick = () => {
+    dispatch(addToList(detail._id))
+  }
 
   return (
     <DetailInfoWrap className='pd-1'>
@@ -27,7 +35,10 @@ const ItemInfo = ({detail}) => {
         <div className='desc'>{detail.desc}</div>
       </div>
 
-      <button>즐겨찾기 추가</button>
+      <button onClick={handleClick}>
+        <BsStar />
+        <span>관심 목록에 추가</span>
+      </button>
     </DetailInfoWrap>
   )
 }
@@ -54,11 +65,19 @@ const DetailInfoWrap = styled.article`
   }
 
   button{
-    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 80px;
     border: none;
     background-color: #456ee3;
     color: #fff;
     padding: 10px;
     border-radius: 10px;
+
+    svg{
+      margin-right: 5px;
+    }
   }
 `;

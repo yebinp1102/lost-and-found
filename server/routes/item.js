@@ -49,8 +49,6 @@ router.post('/items', (req, res)=>{
     }
   }
 
-  console.log('findArgs', findArgs)
-
   Item.find(findArgs)
     .populate('writer')
     .sort([[sortBy, order]])

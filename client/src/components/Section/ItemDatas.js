@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import {Link} from 'react-router-dom';
 import styled from 'styled-components'
 import axios from 'axios'
 import Card from '../utils/Card'
-import FilterBox from '../utils/FilterBox'
-import {places} from './Datas'
+import CheckFilterBox from '../utils/CheckFilterBox'
+import {places, conditions} from './Datas'
+import RadioFilterBox from '../utils/RadioFilterBox'
 const ItemDatas = () => {
 
   const [items, setItems] = useState([])
@@ -11,7 +13,8 @@ const ItemDatas = () => {
   const [limit, setLimit] = useState(6);
   const [postSize, setPostSize] = useState(0)
   const [Filters, setFilters] = useState({
-    places: []
+    places: [],
+    condition: []
   })
 
   useEffect(()=>{
@@ -38,10 +41,15 @@ const ItemDatas = () => {
   const renderItems = items.map((item, idx)=>{
     return(
       <div key={idx} className='item'>
-        <Card
-          cover={<img src={`http://localhost:5000/${item.images[0]}`} />}
-          title={item.title}
-        />
+        <Link to={{
+          pathname: `/item/${item._id}`
+        }}>
+          <Card
+            cover={<img src={`http://localhost:5000/${item.images[0]}`} />}
+            title={item.title}
+            conditions={item.conditions}
+          />
+        </Link>
       </div>
     )
   })
@@ -69,9 +77,11 @@ const ItemDatas = () => {
     setSkip(0)
   }
 
+
   const handleFilters = (filters, category) => {
     const newFilters = {...Filters}
     newFilters[category] = filters
+
     showFilterResults(newFilters)
   }
 
@@ -79,8 +89,9 @@ const ItemDatas = () => {
     <ItemWrap className='container pd-2'>
       <p>최근 올라온 분실문</p>
       <hr/>
-      <div className='filters grid'>
-        <FilterBox title={"지역"} lists={places} handleFilters={filters => handleFilters(filters, "places")} />
+      <div className='flex-space'>
+        <CheckFilterBox lists={places} handleFilters={filters => handleFilters(filters, "places")} />
+        <RadioFilterBox handleFilters={filters => handleFilters(filters, "condition")} />
       </div>
 
       <div className='grid-3 mg-2'>
@@ -101,6 +112,10 @@ export default ItemDatas
 const ItemWrap = styled.section`
   margin-top: 50px;
 
+  .flex-space{
+    align-items: flex-start;
+    gap: 20px;
+  }
   p{
     font-size: 18px;
     padding-bottom: 30px;

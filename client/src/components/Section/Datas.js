@@ -57,4 +57,14 @@ const places = [
   },
 ]
 
-export {places}
+const conditions = [
+  {
+    "_id": "1",
+    "name": "습득"
+  },{
+    "_id": "2",
+    "name": "분실"
+  }
+]
+
+export {places, conditions}

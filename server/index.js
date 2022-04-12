@@ -61,7 +61,8 @@ app.get('/api/users/auth', auth, (req, res)=>{
     isAuth: true,
     email: req.user.email,
     name: req.user.name,
-    role: req.user.role
+    role: req.user.role,
+    list: req.user.list
   })
 })
 
@@ -71,6 +72,44 @@ app.get('/api/users/logout', auth, (req, res)=>{
     if(err) return res.json({success: false, err});
     return res.status(200).send({success: true})
   })
+})
+
+app.post('/api/users/addToCart', auth, (req, res)=>{
+  // DB의 User collection에서 해당 유저의 정보를 가져온다.
+  User.findOne({_id: req.user._id},
+    (err, userInfo)=>{
+      let duplicate = false;
+      userInfo.list.forEach((item)=>{
+        // 가져온 정보에서 관심 목록에 추가할 물건이 이미 목록에 있는지 확인
+        if(item.id === req.body.itemId){
+          duplicate = true;
+        }
+      })
+      // 물건이 이미 리스트에 있을 때
+      if(duplicate){
+        let alert = '이미 관심 목록에 있는 물건 입니다.'
+        return res.status(200).json({alert})
+      }else{   // 물건이 리스트에 없을 때, 상품 정보(id, 날짜 정보) 모두 리스트에 저장.
+        User.findOneAndUpdate(
+          {_id: req.user._id},
+          {
+            $push: {
+              list: {
+                id: req.body.itemId,
+                date: Date.now()
+              }
+            }
+          },
+          { new: true },
+          (err, userInfo) => {
+            if(err) return res.status(400).send(err)
+            return res.status(200).send(userInfo.list)
+          }
+        )
+      }
+
+    }
+  )
 })
 
 app.listen(port, ()=>console.log(`Server ${port} successfully connected!`))

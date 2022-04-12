@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-  LOGIN_USER, REGISTER_USER, AUTH_USER
+  LOGIN_USER, REGISTER_USER, AUTH_USER, ADD_TO_LIST
 } from './types'
 
 
@@ -27,6 +27,18 @@ export function auth (){
     .then(res=>res.data)
   return{
     type: AUTH_USER,
+    payload: request
+  }
+}
+
+export function addToList (id){
+  let body = {
+    itemId : id
+  }
+  const request = axios.post('/api/users/addToCart', body)
+    .then(res=> res.data)
+  return{
+    type: ADD_TO_LIST,
     payload: request
   }
 }
