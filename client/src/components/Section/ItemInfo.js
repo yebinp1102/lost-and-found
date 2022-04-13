@@ -3,8 +3,10 @@ import styled from 'styled-components'
 import {useDispatch} from 'react-redux'
 import {BsStar} from 'react-icons/bs'
 import { addToList } from '../../_actions/user_action'
+import { useNavigate } from 'react-router-dom'
 
 const ItemInfo = ({detail}) => {
+  const navigate = useNavigate();
   const [date, setDate] = useState("")
   const [writer, setWriter] = useState("")
 
@@ -23,6 +25,8 @@ const ItemInfo = ({detail}) => {
 
   const handleClick = () => {
     dispatch(addToList(detail._id))
+    alert('관심 목록에 추가 되었습니다.')
+    navigate('/')
   }
 
   return (

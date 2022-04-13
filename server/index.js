@@ -13,6 +13,7 @@ app.use(cookieParser());
 
 const config = require('./config/key')
 const mongoose = require('mongoose');
+const { Item } = require('./models/Item')
 mongoose.connect(config.mongoURI)
   .then(()=>console.log('MongoDB Connected!'))
   .catch(err=>console.log(err))
@@ -108,6 +109,31 @@ app.post('/api/users/addToCart', auth, (req, res)=>{
         )
       }
 
+    }
+  )
+})
+
+app.get('/api/users/removeFromList', auth, (req, res)=>{
+  User.findOneAndUpdate(
+    {_id: req.user._id},
+    {
+      "$pull" : { "list" : {"id" : req.query.id} }
+    },
+    { new: true },
+    (err, userInfo)=>{
+      let list = userInfo.list;
+      let array = list.map(item=>{
+        return item.id
+      })
+      Item.find({_id: { $in: array}})
+        .populate('writer')
+        .exec((err, ItemInfo)=>{
+          if(err) return res.status(400).send(err)
+          return res.status(200).json({
+            ItemInfo,
+            list
+          })
+        })
     }
   )
 })

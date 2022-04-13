@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-  LOGIN_USER, REGISTER_USER, AUTH_USER, ADD_TO_LIST, GET_LIST_ITEMS
+  LOGIN_USER, REGISTER_USER, AUTH_USER, ADD_TO_LIST, GET_LIST_ITEMS, REMOVE_LIST_ITEM
 } from './types'
 
 
@@ -48,6 +48,18 @@ export function getItemLists(itemLists){
     .then(res=>res.data)
   return{
     type: GET_LIST_ITEMS,
+    payload: request
+  }
+}
+
+export function removeListItem(itemId){
+  const request = axios.get(`/api/users/removeFromList?id=${itemId}`)
+    .then(res=> {
+      return res.data
+    })
+
+  return{
+    type: REMOVE_LIST_ITEM,
     payload: request
   }
 }

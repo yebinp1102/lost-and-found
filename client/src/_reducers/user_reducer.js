@@ -3,7 +3,8 @@ import {
   REGISTER_USER,
   AUTH_USER,
   ADD_TO_LIST,
-  GET_LIST_ITEMS
+  GET_LIST_ITEMS,
+  REMOVE_LIST_ITEM
 } from '../_actions/types'
 
 export default function(state = {}, action){
@@ -20,7 +21,13 @@ export default function(state = {}, action){
       return {...state, userData: {...state.userData, list: action.payload}}
     case GET_LIST_ITEMS:
       return {...state, listDetail: action.payload}
-      default:
+    case REMOVE_LIST_ITEM:
+      return {
+        ...state, 
+        listDetail: action.payload.itemInfo, 
+        userData: { ...state.userData, list: action.payload.list}
+      }
+    default:
        return state
   }
 }

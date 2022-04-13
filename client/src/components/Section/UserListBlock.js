@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
-const UserListBlock = ({item}) => {
-  useEffect(()=>{
-    console.log(item)
-  },[])
+const UserListBlock = ({item, removeItem}) => {
 
   const renderImage = (images) => {
     if(images.length > 0){
@@ -22,7 +19,7 @@ const UserListBlock = ({item}) => {
         <div>
           <p>{itemInfo.conditions === 1 ? '[습득]' : '[분실]'} {itemInfo.title}</p>
           <p className='mg-1'>작성 일자 : {itemInfo.updatedAt.substr(0, 10)}</p>
-          <button>삭제하기</button>
+          <button onClick={()=>removeItem(itemInfo._id)}>삭제하기</button>
         </div>
       </div>
     ))
@@ -62,6 +59,7 @@ const UserListWrap = styled.article`
     }
 
     button{
+      cursor: pointer;
       background-color: #456ee3;
       border: none;
       border-radius: 5px;
