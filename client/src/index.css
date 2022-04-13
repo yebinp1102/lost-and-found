@@ -134,6 +134,9 @@ a{
 .pd-2{
   padding: 2rem;
 }
+.text-center{
+  text-align: center;
+}
 /* CSS Gradient Animator */
 .css-selector {
   background: linear-gradient(319deg, #456ee3, #17d4d2);

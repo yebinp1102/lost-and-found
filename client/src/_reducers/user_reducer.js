@@ -2,7 +2,8 @@ import {
   LOGIN_USER,
   REGISTER_USER,
   AUTH_USER,
-  ADD_TO_LIST
+  ADD_TO_LIST,
+  GET_LIST_ITEMS
 } from '../_actions/types'
 
 export default function(state = {}, action){
@@ -17,7 +18,9 @@ export default function(state = {}, action){
       return{...state, userData: action.payload}
     case ADD_TO_LIST:
       return {...state, userData: {...state.userData, list: action.payload}}
-    default:
+    case GET_LIST_ITEMS:
+      return {...state, listDetail: action.payload}
+      default:
        return state
   }
 }

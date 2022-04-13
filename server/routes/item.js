@@ -62,15 +62,21 @@ router.post('/items', (req, res)=>{
 
 router.get('/items_by_id', (req, res)=>{
   let type = req.query.type
-  let itemId = req.query.id
+  let itemIds = req.query.id
 
-  Item.find({_id: itemId})
+  if(type === 'array'){
+    let ids = req.query.id.split(',')
+    itemIds = ids.map(item=>{
+      return item
+    })
+  }
+
+  Item.find({_id: { $in: itemIds}})
     .populate('writer')
     .exec((err, item)=>{
-      if(err) return res.status(400).json({success: false, err})
-      return res.status(200).json({success: true, item})
+      if(err) return res.status(400).send(err)
+      return res.status(200).send(item)
     })
-
 })
 
 

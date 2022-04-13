@@ -12,12 +12,9 @@ const DetailPage = () => {
   useEffect(()=>{
     axios.get(`/api/item/items_by_id?id=${itemId}&type=single`)
       .then(res=>{
-        if(res.data.success){
-          setItem(res.data.item[0])
-        }else{
-          alert('글 상세 보기에 실패 했습니다.')
-        }
+          setItem(res.data[0])
       })
+      .catch(err=>alert(err))
   },[])
   return (
     <DetailWrap className='container pd-2'>
