@@ -1,0 +1,170 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+ul,li{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+  color: #000;
+}
+.main-color{
+  color: #456ee3;
+}
+.container{
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+.grid-3{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.wrap{
+  height: calc(100vh - 280px);
+  overflow: scroll;
+  background-color: #eee;
+  padding: 30px;
+}
+.btn{
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn:enabled{
+  color: #fff;
+  background-color: #456ee3;
+}
+
+.bold{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.whiteBox{
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  border: 1px solid lightgray;
+}
+
+/* 로그인 & 회원기입 */
+.errmsg{
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.offscreen{
+  display: none;
+}
+
+.onscreen{
+  margin-right: 10px;
+}
+
+.instruction {
+  background-color: #051367;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.instruction > svg {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.title{
+  padding-bottom: 20px;
+}
+
+.logo{
+  font-family: 'Lobster', cursive;
+}
+
+.flex-space{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.mg-2{
+  margin: 2rem 0;
+}
+.mg-1{
+  margin: 1rem 0;
+} 
+.pd-1{
+  padding: 1rem;
+}
+.pd-2{
+  padding: 2rem;
+}
+.text-center{
+  text-align: center;
+}
+/* CSS Gradient Animator */
+.css-selector {
+  background: linear-gradient(319deg, #456ee3, #17d4d2);
+  background-size: 400% 400%;
+
+  -webkit-animation: AnimationName 16s ease infinite;
+  -moz-animation: AnimationName 16s ease infinite;
+  -o-animation: AnimationName 16s ease infinite;
+  animation: AnimationName 16s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+  0%{background-position:0% 14%}
+  50%{background-position:100% 87%}
+  100%{background-position:0% 14%}
+}
+@-moz-keyframes AnimationName {
+  0%{background-position:0% 14%}
+  50%{background-position:100% 87%}
+  100%{background-position:0% 14%}
+}
+@-o-keyframes AnimationName {
+  0%{background-position:0% 14%}
+  50%{background-position:100% 87%}
+  100%{background-position:0% 14%}
+}
+@keyframes AnimationName { 
+  0%{background-position:0% 14%}
+  50%{background-position:100% 87%}
+  100%{background-position:0% 14%}
+}
